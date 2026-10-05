@@ -15,796 +15,339 @@
 import tkinter as tk
 
 root = tk.Tk()
-root.title("My Beautiful House")
-root.geometry("900x700")
+root.title("Beautiful Simple House")
+root.geometry("700x550")
 root.resizable(False, False)
 
-canvas = tk.Canvas(root, width=900, height=650, bg="#F7B267")
+canvas = tk.Canvas(root, width=700, height=550, bg="#87CEEB")
 canvas.pack()
 
-# =========================================================
-# SKY - ANIME SUNSET
-# =========================================================
+# =========================
+# SKY
+# =========================
 
-# Sky background
-canvas.create_rectangle(0, 0, 900, 650, fill="#6C63A8", outline="")
+# Sun - right side
+canvas.create_oval(555, 60, 635, 140, fill="#FFD93D", outline="#F4B400", width=3)
 
-# Sunset bands
-canvas.create_rectangle(0, 300, 900, 400, fill="#E98B73", outline="")
-canvas.create_rectangle(0, 400, 900, 650, fill="#F2A65A", outline="")
-
-# Sun glow
-canvas.create_oval(
-    680, 190, 850, 360,
-    fill="#F7C873",
-    outline=""
-)
-
-canvas.create_oval(
-    715, 225, 815, 325,
-    fill="#FFE69A",
-    outline=""
-)
+# Sun rays
+for x1, y1, x2, y2 in [
+    (595, 45, 595, 25),
+    (595, 155, 595, 175),
+    (540, 100, 520, 100),
+    (650, 100, 670, 100),
+    (550, 55, 535, 40),
+    (640, 55, 655, 40),
+    (550, 145, 535, 160),
+    (640, 145, 655, 160)
+]:
+    canvas.create_line(x1, y1, x2, y2, fill="#FFD93D", width=4)
 
 # Clouds
-clouds = [
-    (70, 90, 220, 130),
-    (180, 120, 330, 155),
-    (570, 90, 730, 130),
-    (720, 125, 880, 165),
-]
+def cloud(x, y):
+    canvas.create_oval(x, y + 15, x + 50, y + 45,
+                       fill="white", outline="")
+    canvas.create_oval(x + 25, y, x + 75, y + 45,
+                       fill="white", outline="")
+    canvas.create_oval(x + 55, y + 12, x + 105, y + 45,
+                       fill="white", outline="")
+    canvas.create_rectangle(x + 20, y + 25, x + 80, y + 45,
+                            fill="white", outline="")
 
-for x1, y1, x2, y2 in clouds:
-    canvas.create_oval(
-        x1, y1, x2, y2,
-        fill="#EFA3A2",
-        outline=""
-    )
+cloud(70, 70)
+cloud(400, 45)
 
-# =========================================================
-# DISTANT MOUNTAINS
-# =========================================================
-
-canvas.create_polygon(
-    0, 410,
-    130, 270,
-    240, 390,
-    370, 250,
-    520, 400,
-    650, 290,
-    790, 410,
-    900, 300,
-    900, 500,
-    0, 500,
-    fill="#5D527F",
-    outline=""
-)
-
-# Snow on mountains
-canvas.create_polygon(
-    370, 250,
-    325, 310,
-    370, 290,
-    395, 315,
-    420, 285,
-    fill="#D9D5E8",
-    outline=""
-)
-
-canvas.create_polygon(
-    650, 290,
-    610, 335,
-    650, 315,
-    680, 340,
-    705, 315,
-    fill="#D9D5E8",
-    outline=""
-)
-
-# =========================================================
+# =========================
 # GROUND
-# =========================================================
+# =========================
 
-canvas.create_rectangle(
-    0, 430, 900, 650,
-    fill="#6FA35B",
-    outline=""
-)
+canvas.create_rectangle(0, 400, 700, 550,
+                        fill="#79C267", outline="")
 
-# Grass shadows
-canvas.create_oval(
-    80, 440, 400, 590,
-    fill="#5B8C4A",
-    outline=""
-)
+# Small grass lines
+for x in range(10, 700, 25):
+    canvas.create_line(x, 410, x + 5, 400,
+                       fill="#4E9F3D", width=2)
 
-canvas.create_oval(
-    560, 440, 850, 590,
-    fill="#5B8C4A",
-    outline=""
-)
+# =========================
+# HOUSE SHADOW
+# =========================
 
-# =========================================================
-# LEFT TREE
-# =========================================================
+canvas.create_oval(120, 390, 510, 430,
+                   fill="#5B9E4A", outline="")
 
-# Tree trunk shadow
-canvas.create_rectangle(
-    80, 300, 125, 500,
-    fill="#633F2A",
-    outline=""
-)
+# =========================
+# HOUSE BODY
+# =========================
 
+# Main wall
+canvas.create_rectangle(170, 210, 470, 400,
+                        fill="#FFF1B8", outline="#8B5E3C", width=4)
+
+# Right side wall for 3D effect
 canvas.create_polygon(
-    100, 330,
-    40, 390,
-    105, 365,
-    55, 440,
-    125, 390,
-    150, 450,
-    135, 350,
-    fill="#70442C",
-    outline=""
-)
-
-# Tree leaves
-tree_colors = [
-    "#285943",
-    "#347A4E",
-    "#3E8A55",
-    "#559B58",
-    "#70AA5A"
-]
-
-leaf_positions = [
-    (20, 220, 160, 350),
-    (70, 180, 220, 330),
-    (10, 280, 170, 400),
-    (110, 230, 260, 370),
-    (45, 160, 170, 290)
-]
-
-for i, pos in enumerate(leaf_positions):
-    canvas.create_oval(
-        *pos,
-        fill=tree_colors[i],
-        outline=""
-    )
-
-# =========================================================
-# RIGHT TREE
-# =========================================================
-
-canvas.create_rectangle(
-    780, 320, 820, 500,
-    fill="#633F2A",
-    outline=""
-)
-
-canvas.create_polygon(
-    800, 350,
-    750, 410,
-    810, 380,
-    755, 450,
-    830, 400,
-    850, 460,
-    835, 350,
-    fill="#70442C",
-    outline=""
-)
-
-right_leaves = [
-    (730, 220, 870, 350),
-    (690, 270, 850, 390),
-    (760, 170, 900, 320),
-    (680, 230, 800, 350)
-]
-
-for i, pos in enumerate(right_leaves):
-    canvas.create_oval(
-        *pos,
-        fill=tree_colors[i],
-        outline=""
-    )
-
-# =========================================================
-# HOUSE MAIN BODY - 3D WALL
-# =========================================================
-
-# Right-side depth
-canvas.create_polygon(
-    650, 310,
-    720, 340,
-    720, 520,
-    650, 500,
-    fill="#C58F69",
-    outline="#75452D",
+    470, 210,
+    510, 230,
+    510, 400,
+    470, 400,
+    fill="#E8C982",
+    outline="#8B5E3C",
     width=3
 )
 
-# Main wall
-canvas.create_rectangle(
-    190, 300, 650, 510,
-    fill="#F5D7A1",
-    outline="#70442D",
-    width=4
-)
-
-# Wall shadow
-canvas.create_polygon(
-    190, 450,
-    650, 450,
-    650, 510,
-    190, 510,
-    fill="#D8AD7C",
-    outline=""
-)
-
-# =========================================================
-# ROOF - 3D EFFECT
-# =========================================================
-
-# Roof dark side
-canvas.create_polygon(
-    130, 305,
-    420, 90,
-    720, 305,
-    650, 335,
-    420, 150,
-    190, 335,
-    fill="#302B4D",
-    outline="#211D35",
-    width=4
-)
+# =========================
+# ROOF
+# =========================
 
 # Main roof
 canvas.create_polygon(
-    130, 290,
-    420, 80,
-    720, 290,
-    650, 315,
-    420, 125,
-    195, 315,
-    fill="#40395F",
-    outline="#241F39",
-    width=5
+    135, 210,
+    320, 75,
+    505, 210,
+    fill="#C94C4C",
+    outline="#743737",
+    width=4
 )
 
 # Roof highlight
 canvas.create_line(
-    150, 285,
-    420, 95,
-    695, 285,
-    fill="#8D7690",
-    width=5
+    160, 200, 320, 90, 480, 200,
+    fill="#E76F51",
+    width=8
 )
 
 # Roof tiles
-for x in range(220, 640, 55):
+for i in range(5):
     canvas.create_line(
-        x, 285,
-        x + 45, 255,
-        fill="#625879",
+        180 + i * 30, 185 - i * 22,
+        200 + i * 30, 200 - i * 22,
+        fill="#9E3D3D",
         width=2
     )
 
-# =========================================================
+# =========================
 # CHIMNEY
-# =========================================================
+# =========================
 
-canvas.create_rectangle(
-    570, 145, 635, 265,
-    fill="#A84E45",
-    outline="#65332F",
-    width=3
-)
+canvas.create_rectangle(390, 115, 430, 175,
+                        fill="#B85C4A",
+                        outline="#743737",
+                        width=3)
 
 # Chimney top
-canvas.create_rectangle(
-    560, 135, 645, 155,
-    fill="#63352F",
-    outline="#422521",
-    width=3
-)
+canvas.create_rectangle(385, 108, 435, 120,
+                        fill="#8E4638",
+                        outline="#743737",
+                        width=2)
 
-# Chimney bricks
-for y in range(170, 250, 25):
-    canvas.create_line(
-        570, y, 635, y,
-        fill="#713936",
-        width=2
-    )
+# =========================
+# DOOR
+# =========================
 
-canvas.create_line(
-    600, 155, 600, 170,
-    fill="#713936",
-    width=2
-)
-
-# Smoke
-canvas.create_oval(
-    585, 90, 625, 130,
-    fill="#D5CBD4",
-    outline=""
-)
-
-canvas.create_oval(
-    605, 55, 650, 105,
-    fill="#D5CBD4",
-    outline=""
-)
-
-canvas.create_oval(
-    630, 25, 680, 75,
-    fill="#D5CBD4",
-    outline=""
-)
-
-# =========================================================
-# SECOND FLOOR WINDOW
-# =========================================================
-
-# Window shadow
-canvas.create_rectangle(
-    330, 165, 510, 275,
-    fill="#6A412E",
-    outline="#39251F",
-    width=4
-)
-
-# Window
-canvas.create_rectangle(
-    345, 180, 495, 265,
-    fill="#FFD98A",
-    outline="#4A3025",
-    width=5
-)
-
-# Window glow
-canvas.create_rectangle(
-    355, 190, 485, 255,
-    fill="#FFE7A6",
-    outline=""
-)
-
-# Window cross
-canvas.create_line(
-    420, 180, 420, 265,
-    fill="#70442D",
-    width=5
-)
-
-canvas.create_line(
-    345, 222, 495, 222,
-    fill="#70442D",
-    width=5
-)
-
-# Window shutters
-canvas.create_rectangle(
-    315, 180, 340, 270,
-    fill="#70442D",
-    outline="#43291F",
-    width=3
-)
-
-canvas.create_rectangle(
-    500, 180, 525, 270,
-    fill="#70442D",
-    outline="#43291F",
-    width=3
-)
-
-# =========================================================
-# FLOWER BOX
-# =========================================================
-
-canvas.create_rectangle(
-    340, 270, 500, 295,
-    fill="#75452D",
-    outline="#4C2D20",
-    width=3
-)
-
-# Flowers
-flower_positions = [
-    (360, 265),
-    (385, 260),
-    (410, 268),
-    (435, 258),
-    (460, 267),
-    (485, 260)
-]
-
-for x, y in flower_positions:
-    canvas.create_oval(
-        x - 7, y - 7,
-        x + 7, y + 7,
-        fill="#F58FA8",
-        outline="#B94E70"
-    )
-    canvas.create_oval(
-        x - 2, y - 2,
-        x + 2, y + 2,
-        fill="#FFD75E",
-        outline=""
-    )
-
-# =========================================================
-# FRONT PORCH ROOF
-# =========================================================
-
-canvas.create_polygon(
-    300, 310,
-    420, 235,
-    540, 310,
-    520, 335,
-    420, 270,
-    320, 335,
-    fill="#71432D",
-    outline="#43291F",
-    width=4
-)
-
-# Porch light
-canvas.create_oval(
-    408, 285, 432, 309,
-    fill="#FFE27A",
-    outline="#A86635",
-    width=3
-)
-
-# =========================================================
-# FRONT DOOR
-# =========================================================
-
-# Door shadow
-canvas.create_rectangle(
-    350, 335, 490, 515,
-    fill="#5A3427",
-    outline="#3B241D",
-    width=5
-)
+# Door frame
+canvas.create_rectangle(275, 290, 365, 400,
+                        fill="#754C32",
+                        outline="#4E3324",
+                        width=4)
 
 # Door
-canvas.create_rectangle(
-    365, 345, 475, 510,
-    fill="#8A5135",
-    outline="#43291F",
-    width=4
-)
+canvas.create_rectangle(285, 300, 355, 400,
+                        fill="#A66A3F",
+                        outline="#593B27",
+                        width=3)
 
 # Door panels
-canvas.create_rectangle(
-    380, 360, 460, 415,
-    fill="#70412D",
-    outline="#B4774E",
-    width=3
-)
+canvas.create_rectangle(295, 315, 345, 350,
+                        fill="#B8794A",
+                        outline="#754C32",
+                        width=2)
 
-canvas.create_rectangle(
-    380, 430, 460, 495,
-    fill="#70412D",
-    outline="#B4774E",
-    width=3
-)
-
-# Door window
-canvas.create_rectangle(
-    390, 370, 450, 405,
-    fill="#FFD77D",
-    outline="#4D3023",
-    width=3
-)
+canvas.create_rectangle(295, 360, 345, 390,
+                        fill="#B8794A",
+                        outline="#754C32",
+                        width=2)
 
 # Door knob
-canvas.create_oval(
-    450, 425, 462, 437,
-    fill="#FFD45C",
-    outline="#8A5A20",
-    width=2
-)
+canvas.create_oval(335, 350, 345, 360,
+                   fill="#FFD700", outline="#A87900")
 
-# =========================================================
-# LEFT WINDOW
-# =========================================================
+# =========================
+# WINDOWS
+# =========================
 
-canvas.create_rectangle(
-    220, 350, 315, 430,
-    fill="#FFE08D",
-    outline="#563526",
-    width=5
-)
+def window(x, y):
+    # Frame
+    canvas.create_rectangle(x, y, x + 65, y + 65,
+                            fill="#6B432C",
+                            outline="#4B3021",
+                            width=3)
 
-canvas.create_line(
-    267, 350, 267, 430,
-    fill="#70442D",
-    width=4
-)
+    # Glass
+    canvas.create_rectangle(x + 7, y + 7, x + 58, y + 58,
+                            fill="#8ED6F5",
+                            outline="")
 
-canvas.create_line(
-    220, 390, 315, 390,
-    fill="#70442D",
-    width=4
-)
+    # Cross
+    canvas.create_line(x + 32, y + 7, x + 32, y + 58,
+                       fill="white", width=3)
 
-# Curtains
+    canvas.create_line(x + 7, y + 32, x + 58, y + 32,
+                       fill="white", width=3)
+
+    # Window shine
+    canvas.create_line(x + 13, y + 13, x + 25, y + 13,
+                       fill="white", width=3)
+
+window(195, 245)
+window(390, 245)
+
+# =========================
+# FLOWERS
+# =========================
+
+def flower(x, y):
+    canvas.create_oval(x - 8, y - 8, x, y,
+                       fill="#FF6B81", outline="")
+    canvas.create_oval(x + 2, y - 8, x + 10, y,
+                       fill="#FF6B81", outline="")
+    canvas.create_oval(x - 8, y, x, y + 8,
+                       fill="#FF6B81", outline="")
+    canvas.create_oval(x + 2, y, x + 10, y + 8,
+                       fill="#FF6B81", outline="")
+
+    canvas.create_oval(x - 2, y - 2, x + 4, y + 4,
+                       fill="#FFD93D", outline="")
+
+    canvas.create_line(x + 1, y + 5, x + 1, y + 30,
+                       fill="#3E8E41", width=3)
+
+flower(150, 425)
+flower(535, 435)
+flower(570, 415)
+
+# =========================
+# DOG HOUSE - LEFT SIDE
+# =========================
+
+# Dog house body
+canvas.create_rectangle(35, 350, 140, 425,
+                        fill="#D99152",
+                        outline="#704020",
+                        width=3)
+
+# Dog house roof
 canvas.create_polygon(
-    225, 355,
-    255, 355,
-    255, 425,
-    225, 410,
-    fill="#F8E7D0",
-    outline=""
-)
-
-canvas.create_polygon(
-    280, 355,
-    310, 355,
-    310, 410,
-    280, 425,
-    fill="#F8E7D0",
-    outline=""
-)
-
-# =========================================================
-# RIGHT WINDOW
-# =========================================================
-
-canvas.create_rectangle(
-    525, 350, 620, 430,
-    fill="#FFE08D",
-    outline="#563526",
-    width=5
-)
-
-canvas.create_line(
-    572, 350, 572, 430,
-    fill="#70442D",
-    width=4
-)
-
-canvas.create_line(
-    525, 390, 620, 390,
-    fill="#70442D",
-    width=4
-)
-
-# Curtains
-canvas.create_polygon(
-    530, 355,
-    560, 355,
-    560, 425,
-    530, 410,
-    fill="#F8E7D0",
-    outline=""
-)
-
-canvas.create_polygon(
-    585, 355,
-    615, 355,
-    615, 410,
-    585, 425,
-    fill="#F8E7D0",
-    outline=""
-)
-
-# =========================================================
-# FLOWER POTS
-# =========================================================
-
-def flower_pot(x, y):
-    canvas.create_polygon(
-        x, y,
-        x + 40, y,
-        x + 32, y + 35,
-        x + 8, y + 35,
-        fill="#B86643",
-        outline="#703B29",
-        width=2
-    )
-
-    canvas.create_line(
-        x + 20, y,
-        x + 20, y - 25,
-        fill="#3C7541",
-        width=3
-    )
-
-    canvas.create_oval(
-        x + 5, y - 35,
-        x + 20, y - 20,
-        fill="#F08BA5",
-        outline="#A84D6A"
-    )
-
-    canvas.create_oval(
-        x + 18, y - 30,
-        x + 33, y - 15,
-        fill="#F5B85E",
-        outline="#B86A28"
-    )
-
-flower_pot(300, 480)
-flower_pot(505, 480)
-
-# =========================================================
-# HOUSE FOUNDATION
-# =========================================================
-
-canvas.create_polygon(
-    170, 505,
-    665, 505,
-    700, 540,
-    140, 540,
-    fill="#765A54",
-    outline="#4A3935",
+    25, 350,
+    87, 300,
+    150, 350,
+    fill="#9E4F3D",
+    outline="#65352A",
     width=3
 )
 
-# Foundation highlights
-canvas.create_line(
-    170, 510,
-    665, 510,
-    fill="#A28A82",
-    width=4
-)
+# Dog house entrance
+canvas.create_oval(65, 365, 110, 420,
+                   fill="#4A3025",
+                   outline="#633A28",
+                   width=2)
 
-# =========================================================
-# STONE PATH
-# =========================================================
+# Dog house sign
+canvas.create_rectangle(60, 330, 115, 350,
+                        fill="#F6D58A",
+                        outline="#704020")
 
-path_points = [
-    (390, 535, 500, 535),
-    (370, 565, 520, 565),
-    (345, 600, 545, 600),
-    (315, 645, 575, 645)
-]
+canvas.create_text(87, 340,
+                   text="DOG",
+                   font=("Arial", 9, "bold"),
+                   fill="#704020")
 
-for x1, y1, x2, y2 in path_points:
-    canvas.create_polygon(
-        x1, y1,
-        x2, y1,
-        x2 + 15, y2,
-        x1 - 15, y2,
-        fill="#B7A59A",
-        outline="#75645C",
-        width=2
-    )
+# =========================
+# DOG
+# =========================
 
-# =========================================================
-# FENCE
-# =========================================================
+# Dog body
+canvas.create_oval(85, 425, 160, 475,
+                   fill="#C9824B",
+                   outline="#633D27",
+                   width=3)
 
-# Horizontal fence
-canvas.create_rectangle(
-    0, 555, 180, 575,
-    fill="#8A5A3C",
-    outline="#5A3828"
-)
+# Dog head
+canvas.create_oval(55, 390, 115, 450,
+                   fill="#C9824B",
+                   outline="#633D27",
+                   width=3)
 
-canvas.create_rectangle(
-    700, 555, 900, 575,
-    fill="#8A5A3C",
-    outline="#5A3828"
-)
+# Ears
+canvas.create_oval(48, 390, 70, 425,
+                   fill="#8A542F",
+                   outline="#633D27",
+                   width=2)
 
-# Fence posts
-for x in [20, 80, 140, 750, 810, 870]:
-    canvas.create_polygon(
-        x, 530,
-        x + 35, 530,
-        x + 35, 610,
-        x, 610,
-        fill="#9B6847",
-        outline="#5A3828",
-        width=2
-    )
+canvas.create_oval(100, 390, 122, 425,
+                   fill="#8A542F",
+                   outline="#633D27",
+                   width=2)
 
-# =========================================================
-# FLOWERS IN GARDEN
-# =========================================================
+# Eyes
+canvas.create_oval(70, 410, 77, 417,
+                   fill="black")
 
-garden_flowers = [
-    (100, 520, "#F48FA3"),
-    (145, 500, "#FFD166"),
-    (690, 510, "#DDA0DD"),
-    (740, 490, "#FF8FA3"),
-    (800, 520, "#FFE066"),
-    (850, 500, "#F4A6D7"),
-]
+canvas.create_oval(94, 410, 101, 417,
+                   fill="black")
 
-for x, y, color in garden_flowers:
-    # stem
-    canvas.create_line(
-        x, y,
-        x, y + 35,
-        fill="#347A42",
-        width=3
-    )
+# Nose
+canvas.create_oval(82, 425, 92, 434,
+                   fill="black")
 
-    # petals
-    canvas.create_oval(
-        x - 9, y - 5,
-        x + 9, y + 10,
-        fill=color,
-        outline=""
-    )
+# Mouth
+canvas.create_arc(78, 425, 98, 442,
+                  start=0, extent=-180,
+                  style=tk.ARC,
+                  width=2)
 
-    canvas.create_oval(
-        x - 5, y - 10,
-        x + 5, y + 14,
-        fill=color,
-        outline=""
-    )
+# Dog legs
+canvas.create_rectangle(100, 460, 115, 490,
+                        fill="#A9683D",
+                        outline="#633D27")
 
-    canvas.create_oval(
-        x - 3, y - 3,
-        x + 3, y + 3,
-        fill="#FFD45C",
-        outline=""
-    )
+canvas.create_rectangle(135, 460, 150, 490,
+                        fill="#A9683D",
+                        outline="#633D27")
 
-# =========================================================
-# HOME SWEET HOME SIGN
-# =========================================================
+# Dog tail
+canvas.create_arc(145, 420, 185, 465,
+                  start=270, extent=180,
+                  style=tk.ARC,
+                  fill="#C9824B",
+                  width=7)
 
-canvas.create_polygon(
-    40, 570,
-    180, 570,
-    180, 630,
-    40, 630,
-    fill="#A66D48",
-    outline="#593A2A",
-    width=3
-)
+# Dog collar
+canvas.create_line(68, 440, 105, 440,
+                   fill="#E84A5F", width=5)
 
-canvas.create_text(
-    110, 595,
-    text="HOME",
-    font=("Arial", 16, "bold"),
-    fill="#3E2A20"
-)
+# =========================
+# EXTRA BUSHES
+# =========================
 
-canvas.create_text(
-    110, 617,
-    text="SWEET HOME",
-    font=("Arial", 10, "bold"),
-    fill="#3E2A20"
-)
+def bush(x, y):
+    canvas.create_oval(x, y, x + 50, y + 40,
+                       fill="#4E9F3D", outline="#397A30", width=2)
+    canvas.create_oval(x + 25, y - 15, x + 75, y + 40,
+                       fill="#5EAA48", outline="#397A30", width=2)
+    canvas.create_oval(x + 50, y, x + 100, y + 40,
+                       fill="#4E9F3D", outline="#397A30", width=2)
 
-# =========================================================
-# ANIME SPARKLES
-# =========================================================
+bush(500, 365)
+bush(600, 375)
 
-sparkles = [
-    (270, 180),
-    (750, 250),
-    (160, 420),
-    (680, 440)
-]
-
-for x, y in sparkles:
-    canvas.create_line(
-        x - 8, y, x + 8, y,
-        fill="#FFF3B0",
-        width=2
-    )
-    canvas.create_line(
-        x, y - 8, x, y + 8,
-        fill="#FFF3B0",
-        width=2
-    )
-
-# =========================================================
+# =========================
 # TITLE
-# =========================================================
+# =========================
 
 canvas.create_text(
-    450, 30,
-    text="MY BEAUTIFUL HOUSE",
-    font=("Arial", 20, "bold"),
-    fill="#FFF1D0"
+    350, 525,
+    text="My Little Dream House 🏡",
+    font=("Arial", 18, "bold"),
+    fill="#31572C"
 )
 
 root.mainloop()
